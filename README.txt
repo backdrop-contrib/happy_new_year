@@ -5,7 +5,8 @@ https://www.drupal.org/project/happy_new_year
 INTRODUCTION
 ------------
 
-A module with garland and snow decoration that creates longlasting atmosphere of New Year for you and the users of
+A module with garland and snow decoration that creates
+longlasting atmosphere of New Year for you and the users of
 your website.
 
 REQUIREMENTS

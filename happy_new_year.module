@@ -10,8 +10,8 @@
  */
 function happy_new_year_menu() {
   $items['admin/config/media/happy_new_year'] = [
-    'title' => t('Happy New Year'),
-    'description' => t('A module with garland and snow decoration that creates longlasting atmosphere of New Year for you and the users of your website.'),
+    'title' => 'Happy New Year!',
+    'description' => 'A module with garland and snow decoration that creates longlasting atmosphere of New Year for you and the users of your website.',
     'page callback' => 'drupal_get_form',
     'page arguments' => ['happy_new_year_settings_form'],
     'access arguments' => ['administer site configuration'],
@@ -55,7 +55,7 @@ function happy_new_year_settings_form() {
     '#default_value' => [
       'day' => $end['day'],
       'month' => $end['month'],
-      'year' => date('Y')+1,
+      'year' => date('Y') + 1,
     ],
     '#description' => t('Use next year'),
     '#after_build' => ['happy_new_year_disable_year'],
@@ -83,8 +83,8 @@ function happy_new_year_settings_form() {
     '#size' => 7,
     '#attached' => [
       'library' => [['system', 'farbtastic']],
-      'js' => [drupal_get_path('module', 'happy_new_year') . '/js/colorpicker.js']
-    ]
+      'js' => [drupal_get_path('module', 'happy_new_year') . '/js/colorpicker.js'],
+    ],
   ];
   $form['happy_new_year_minified'] = [
     '#type' => 'checkbox',
@@ -109,18 +109,18 @@ function happy_new_year_page_build(&$page) {
   $start = variable_get('happy_new_year_start');
   $end = variable_get('happy_new_year_end');
   $startUT = mktime(0, 0, 0, $start['month'], $start['day'], date('Y'));
-  $endUT = mktime(0, 0, 0, $end['month'], $end['day'], date('Y')+1);
+  $endUT = mktime(0, 0, 0, $end['month'], $end['day'], date('Y') + 1);
 
   if ((variable_get('happy_new_year_period')) && !(REQUEST_TIME >= $startUT && REQUEST_TIME <= $endUT)) {
     return;
   }
 
-  if ( (!path_is_admin(current_path())) ) {
+  if ((!path_is_admin(current_path()))) {
     $snowLibrary = '/js/snowstorm.js';
     $snowLibraryMin = '/js/snowstorm-min.js';
-    if (variable_get('happy_new_year_minified', TRUE))
+    if (variable_get('happy_new_year_minified', TRUE)) {
       $snowLibrary = $snowLibraryMin;
-
+    }
     if (variable_get('happy_new_year_garland')) {
       drupal_add_js(drupal_get_path('module', 'happy_new_year') . '/js/garland.js');
       drupal_add_css(drupal_get_path('module', 'happy_new_year') . '/css/garland.css');
@@ -131,4 +131,11 @@ function happy_new_year_page_build(&$page) {
       drupal_add_js(['happy_new_year' => ['snowColor' => variable_get('happy_new_year_snowcolor', '#FFFFFF')]], ['type' => 'setting']);
     }
   }
+}
+
+/**
+ * Implements hook_help().
+ */
+function happy_new_year_help($path, $arg) {
+  return '';
 }
