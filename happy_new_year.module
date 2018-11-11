@@ -95,7 +95,7 @@ function happy_new_year_settings_form() {
 }
 
 /**
- * Hide year fields
+ * Hide year fields.
  */
 function happy_new_year_disable_year($form, &$form_state) {
   $form['year']['#attributes'] = ['class' => ['element-hidden']];
