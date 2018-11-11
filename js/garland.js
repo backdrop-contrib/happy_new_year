@@ -41,7 +41,7 @@
       }
 
       setInterval(function () {
-        garland ()
+        garland();
       }, 500);
 
     }
