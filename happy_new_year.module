@@ -48,6 +48,11 @@ function happy_new_year_settings_form() {
     ],
     '#description' => t('Use current year'),
     '#after_build' => ['happy_new_year_disable_year'],
+    '#states' => [
+      'disabled' => [
+        '#edit-happy-new-year-period' => ['checked' => FALSE],
+      ],
+    ],
   ];
   $form['period']['happy_new_year_end'] = [
     '#type' => 'date',
@@ -59,6 +64,11 @@ function happy_new_year_settings_form() {
     ],
     '#description' => t('Use next year'),
     '#after_build' => ['happy_new_year_disable_year'],
+    '#states' => [
+      'disabled' => [
+        '#edit-happy-new-year-period' => ['checked' => FALSE],
+      ],
+    ],
   ];
   $form['snow_and_garland'] = [
     '#type' => 'fieldset',
@@ -73,6 +83,11 @@ function happy_new_year_settings_form() {
     '#type' => 'checkbox',
     '#title' => t('Top-Fixed garland'),
     '#default_value' => variable_get('happy_new_year_garland_position', TRUE),
+    '#states' => [
+      'disabled' => [
+        '#edit-happy-new-year-garland' => ['checked' => FALSE],
+      ],
+    ],
   ];
   $form['snow_and_garland']['happy_new_year_snow'] = [
     '#type' => 'checkbox',
@@ -89,6 +104,11 @@ function happy_new_year_settings_form() {
     '#attached' => [
       'library' => [['system', 'farbtastic']],
       'js' => [drupal_get_path('module', 'happy_new_year') . '/js/colorpicker.js'],
+    ],
+    '#states' => [
+      'disabled' => [
+        '#edit-happy-new-year-snow' => ['checked' => FALSE],
+      ],
     ],
   ];
   $form['happy_new_year_minified'] = [
