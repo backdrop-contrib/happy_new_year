@@ -104,11 +104,6 @@ function happy_new_year_settings_form() {
     '#title' => t('Use custom top margin'),
     '#default_value' => variable_get('happy_new_year_garland_custommargin', FALSE),
   ];
-  $form['snow_and_garland']['garland_settings']['happy_new_year_garland_custommargin'] = [
-    '#type' => 'checkbox',
-    '#title' => t('Use custom top margin'),
-    '#default_value' => variable_get('happy_new_year_garland_custommargin', FALSE),
-  ];
   $form['snow_and_garland']['garland_settings']['happy_new_year_garland_custommargintext'] = [
     '#type' => 'textfield',
     '#title' => t('Enter custom top margin'),
