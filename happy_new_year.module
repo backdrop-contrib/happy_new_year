@@ -79,10 +79,47 @@ function happy_new_year_settings_form() {
       ],
     ],
   ];
-  $form['snow_and_garland']['garland_settings']['happy_new_year_garland_position'] = [
+  $form['snow_and_garland']['garland_settings']['happy_new_year_garland_topfixed'] = [
     '#type' => 'checkbox',
     '#title' => t('Top-Fixed garland'),
-    '#default_value' => variable_get('happy_new_year_garland_position', TRUE),
+    '#default_value' => variable_get('happy_new_year_garland_topfixed', TRUE),
+  ];
+  $form['snow_and_garland']['garland_settings']['happy_new_year_garland_coretoolbar'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Drupal core toolbar is used (add garland after toolbar)'),
+    '#default_value' => variable_get('happy_new_year_garland_coretoolbar', TRUE),
+  ];
+  $form['snow_and_garland']['garland_settings']['happy_new_year_garland_bootstrapfixed'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Bootstrap navbar-fixed is used (add garland after navbar)'),
+    '#default_value' => variable_get('happy_new_year_garland_bootstrapfixed', FALSE),
+  ];
+  $form['snow_and_garland']['garland_settings']['happy_new_year_garland_adminmenu'] = [
+    '#type' => 'checkbox',
+    '#title' => t('admin_menu is used (add garland after menu)'),
+    '#default_value' => variable_get('happy_new_year_garland_adminmenu', FALSE),
+  ];
+  $form['snow_and_garland']['garland_settings']['happy_new_year_garland_custommargin'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Use custom top margin'),
+    '#default_value' => variable_get('happy_new_year_garland_custommargin', FALSE),
+  ];
+  $form['snow_and_garland']['garland_settings']['happy_new_year_garland_custommargin'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Use custom top margin'),
+    '#default_value' => variable_get('happy_new_year_garland_custommargin', FALSE),
+  ];
+  $form['snow_and_garland']['garland_settings']['happy_new_year_garland_custommargintext'] = [
+    '#type' => 'textfield',
+    '#title' => t('Enter custom top margin'),
+    '#default_value' => variable_get('happy_new_year_garland_custommargintext', 0),
+    '#maxlength' => 7,
+    '#size' => 7,
+    '#states' => [
+      'visible' => [
+        '#edit-happy-new-year-garland-custommargin' => ['checked' => TRUE],
+      ],
+    ],
   ];
   $form['snow_and_garland']['happy_new_year_snow'] = [
     '#type' => 'checkbox',
@@ -152,6 +189,7 @@ function happy_new_year_page_build(&$page) {
     if (variable_get('happy_new_year_minified', TRUE)) {
       $snowLibrary = $snowLibraryMin;
     }
+
     if (variable_get('happy_new_year_garland')) {
       $page['content']['#attached']['js'][] = [
         'type' => 'file',
@@ -163,7 +201,7 @@ function happy_new_year_page_build(&$page) {
         'data' => $module_path . '/css/garland.css',
       ];
 
-      if (variable_get('happy_new_year_garland_position', TRUE)) {
+      if (variable_get('happy_new_year_garland_topfixed', TRUE)) {
         $page['content']['#attached']['css'][] = [
           'type' => 'file',
           'data' => $module_path . '/css/garland-fixed.css',
@@ -175,7 +213,21 @@ function happy_new_year_page_build(&$page) {
           'data' => $module_path . '/css/garland-absolute.css',
         ];
       }
+
+      $page['content']['#attached']['js'][] = [
+        'type' => 'setting',
+        'data' => [
+          'happy_new_year' => [
+            'garlandCoreToolbar' => variable_get('happy_new_year_garland_coretoolbar'),
+            'garlandBootstrapFixed' => variable_get('happy_new_year_garland_bootstrapfixed'),
+            'garlandAdminMenu' => variable_get('happy_new_year_garland_adminmenu'),
+            'garlandCustomMargin' => variable_get('happy_new_year_garland_custommargin'),
+            'garlandCustomMarginText' => variable_get('happy_new_year_garland_custommargintext'),
+          ],
+        ],
+      ];
     }
+
     if (variable_get('happy_new_year_snow')) {
       $page['content']['#attached']['js'][] = [
         'type' => 'file',
