@@ -24,8 +24,10 @@ function happy_new_year_menu() {
  * Form settings.
  */
 function happy_new_year_settings_form() {
-  $start = variable_get('happy_new_year_start');
-  $end = variable_get('happy_new_year_end');
+  $days = [];
+  for ($i = 1; $i <= 31; $i++) {
+    $days[] = $i;
+  }
 
   $form = [];
   $form['period'] = [
@@ -48,26 +50,16 @@ function happy_new_year_settings_form() {
     ],
   ];
   $form['period']['period_dates']['happy_new_year_start'] = [
-    '#type' => 'date',
-    '#title' => t('Start date'),
-    '#default_value' => [
-      'day' => $start['day'],
-      'month' => $start['month'],
-      'year' => date('Y'),
-    ],
-    '#description' => t('Use current year'),
-    '#after_build' => ['happy_new_year_disable_year'],
+    '#type' => 'select',
+    '#title' => t('Start day (december)'),
+    '#options' => $days,
+    '#default_value' => variable_get('happy_new_year_start', 1),
   ];
   $form['period']['period_dates']['happy_new_year_end'] = [
-    '#type' => 'date',
-    '#title' => t('End date'),
-    '#default_value' => [
-      'day' => $end['day'],
-      'month' => $end['month'],
-      'year' => date('Y') + 1,
-    ],
-    '#description' => t('Use next year'),
-    '#after_build' => ['happy_new_year_disable_year'],
+    '#type' => 'select',
+    '#title' => t('End day (january)'),
+    '#options' => $days,
+    '#default_value' => variable_get('happy_new_year_end', 10),
   ];
   $form['snow_and_garland'] = [
     '#type' => 'fieldset',
@@ -127,23 +119,30 @@ function happy_new_year_settings_form() {
 }
 
 /**
- * Hide year fields.
+ * Helper function.
+ *
+ * @return bool
  */
-function happy_new_year_disable_year($form, &$form_state) {
-  $form['year']['#attributes'] = ['class' => ['element-hidden']];
-  return $form;
+function _happy_new_year_isholidaytime() {
+  $start = variable_get('happy_new_year_start') +1 ;
+  $end = variable_get('happy_new_year_end') + 1;
+
+  if(date('m') == 12 && date('d') >= $start){
+    return TRUE;
+  }
+  else if(date('m') == 1 && date('d') <= $end){
+    return TRUE;
+  }
+  else{
+    return FALSE;
+  }
 }
 
 /**
  * Implements hook_page_build().
  */
 function happy_new_year_page_build(&$page) {
-  $start = variable_get('happy_new_year_start');
-  $end = variable_get('happy_new_year_end');
-  $startUT = mktime(0, 0, 0, $start['month'], $start['day'], date('Y'));
-  $endUT = mktime(0, 0, 0, $end['month'], $end['day'], date('Y') + 1);
-
-  if ((variable_get('happy_new_year_period')) && !(REQUEST_TIME >= $startUT && REQUEST_TIME <= $endUT)) {
+  if ((variable_get('happy_new_year_period')) && !_happy_new_year_isholidaytime()) {
     return;
   }
 
