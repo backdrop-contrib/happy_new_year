@@ -144,6 +144,8 @@ function happy_new_year_page_build(&$page) {
     return;
   }
 
+  $module_path = drupal_get_path('module', 'happy_new_year');
+
   if ((!path_is_admin(current_path()))) {
     $snowLibrary = '/js/snowstorm.js';
     $snowLibraryMin = '/js/snowstorm-min.js';
@@ -151,19 +153,46 @@ function happy_new_year_page_build(&$page) {
       $snowLibrary = $snowLibraryMin;
     }
     if (variable_get('happy_new_year_garland')) {
-      drupal_add_js(drupal_get_path('module', 'happy_new_year') . '/js/garland.js');
-      drupal_add_css(drupal_get_path('module', 'happy_new_year') . '/css/garland.css');
+      $page['content']['#attached']['js'][] = [
+        'type' => 'file',
+        'data' => $module_path . '/js/garland.js',
+      ];
+
+      $page['content']['#attached']['css'][] = [
+        'type' => 'file',
+        'data' => $module_path . '/css/garland.css',
+      ];
+
       if (variable_get('happy_new_year_garland_position', TRUE)) {
-        drupal_add_css(drupal_get_path('module', 'happy_new_year') . '/css/garland-fixed.css');
+        $page['content']['#attached']['css'][] = [
+          'type' => 'file',
+          'data' => $module_path . '/css/garland-fixed.css',
+        ];
       }
       else {
-        drupal_add_css(drupal_get_path('module', 'happy_new_year') . '/css/garland-absolute.css');
+        $page['content']['#attached']['css'][] = [
+          'type' => 'file',
+          'data' => $module_path . '/css/garland-absolute.css',
+        ];
       }
     }
     if (variable_get('happy_new_year_snow')) {
-      drupal_add_js(drupal_get_path('module', 'happy_new_year') . $snowLibrary);
-      drupal_add_js(drupal_get_path('module', 'happy_new_year') . '/js/snow.js');
-      drupal_add_js(['happy_new_year' => ['snowColor' => variable_get('happy_new_year_snowcolor', '#FFFFFF')]], ['type' => 'setting']);
+      $page['content']['#attached']['js'][] = [
+        'type' => 'file',
+        'data' => $module_path . $snowLibrary,
+      ];
+      $page['content']['#attached']['js'][] = [
+        'type' => 'file',
+        'data' => $module_path . '/js/snow.js',
+      ];
+      $page['content']['#attached']['js'][] = [
+        'type' => 'setting',
+        'data' => [
+          'happy_new_year' => [
+            'snowColor' => variable_get('happy_new_year_snowcolor', '#FFFFFF'),
+          ],
+        ],
+      ];
     }
   }
 }
