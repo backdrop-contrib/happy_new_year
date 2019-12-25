@@ -16,7 +16,10 @@
         }
       }
 
-      $('body').prepend('<div id="garland"></div>');
+      // Add new garland if garland doesn't exists.
+      if ($('#garland').length === 0) {
+        $('body').prepend('<div id="garland"></div>');
+      }
 
       // if core toolbar exists
       if ($('body').hasClass('toolbar')) {
