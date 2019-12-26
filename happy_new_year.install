@@ -23,3 +23,13 @@ function happy_new_year_uninstall() {
   variable_del('happy_new_year_garland_custommargin');
   variable_del('happy_new_year_garland_custommargintext');
 }
+
+/**
+ * Fix variables.
+ */
+function happy_new_year_update_7100(&$sandbox) {
+  variable_del('happy_new_year_start');
+  variable_del('happy_new_year_end');
+  variable_set('happy_new_year_start', 1);
+  variable_set('happy_new_year_end', 10);
+}
