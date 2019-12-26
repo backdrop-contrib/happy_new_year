@@ -169,9 +169,9 @@ function _happy_new_year_isholidaytime() {
 }
 
 /**
- * Implements hook_page_build().
+ * Implements hook_preprocess_HOOK().
  */
-function happy_new_year_page_build(&$page) {
+function happy_new_year_preprocess_html(&$variables) {
   if ((variable_get('happy_new_year_period')) && !_happy_new_year_isholidaytime()) {
     return;
   }
@@ -186,60 +186,36 @@ function happy_new_year_page_build(&$page) {
     }
 
     if (variable_get('happy_new_year_garland')) {
-      $page['content']['#attached']['js'][] = [
-        'type' => 'file',
-        'data' => $module_path . '/js/garland.js',
-      ];
+      drupal_add_js($module_path . '/js/garland.js');
 
-      $page['content']['#attached']['css'][] = [
-        'type' => 'file',
-        'data' => $module_path . '/css/garland.css',
-      ];
+      drupal_add_css($module_path . '/css/garland.css');
 
       if (variable_get('happy_new_year_garland_topfixed', TRUE)) {
-        $page['content']['#attached']['css'][] = [
-          'type' => 'file',
-          'data' => $module_path . '/css/garland-fixed.css',
-        ];
+        drupal_add_css($module_path . '/css/garland-fixed.css');
       }
       else {
-        $page['content']['#attached']['css'][] = [
-          'type' => 'file',
-          'data' => $module_path . '/css/garland-absolute.css',
-        ];
+        drupal_add_css($module_path . '/css/garland-absolute.css');
       }
 
-      $page['content']['#attached']['js'][] = [
-        'type' => 'setting',
-        'data' => [
-          'happy_new_year' => [
-            'garlandCoreToolbar' => variable_get('happy_new_year_garland_coretoolbar'),
-            'garlandBootstrapFixed' => variable_get('happy_new_year_garland_bootstrapfixed'),
-            'garlandAdminMenu' => variable_get('happy_new_year_garland_adminmenu'),
-            'garlandCustomMargin' => variable_get('happy_new_year_garland_custommargin'),
-            'garlandCustomMarginText' => variable_get('happy_new_year_garland_custommargintext'),
-          ],
+      drupal_add_js([
+        'happy_new_year' => [
+          'garlandCoreToolbar' => variable_get('happy_new_year_garland_coretoolbar'),
+          'garlandBootstrapFixed' => variable_get('happy_new_year_garland_bootstrapfixed'),
+          'garlandAdminMenu' => variable_get('happy_new_year_garland_adminmenu'),
+          'garlandCustomMargin' => variable_get('happy_new_year_garland_custommargin'),
+          'garlandCustomMarginText' => variable_get('happy_new_year_garland_custommargintext'),
         ],
-      ];
+      ], ['type' => 'setting']);
     }
 
     if (variable_get('happy_new_year_snow')) {
-      $page['content']['#attached']['js'][] = [
-        'type' => 'file',
-        'data' => $module_path . $snowLibrary,
-      ];
-      $page['content']['#attached']['js'][] = [
-        'type' => 'file',
-        'data' => $module_path . '/js/snow.js',
-      ];
-      $page['content']['#attached']['js'][] = [
-        'type' => 'setting',
-        'data' => [
-          'happy_new_year' => [
-            'snowColor' => variable_get('happy_new_year_snowcolor', '#FFFFFF'),
-          ],
+      drupal_add_js($module_path . $snowLibrary);
+      drupal_add_js($module_path . '/js/snow.js');
+      drupal_add_js([
+        'happy_new_year' => [
+          'snowColor' => variable_get('happy_new_year_snowcolor', '#FFFFFF'),
         ],
-      ];
+      ], ['type' => 'setting']);
     }
   }
 }
