@@ -53,13 +53,13 @@ function happy_new_year_settings_form() {
     '#type' => 'select',
     '#title' => t('Start day (December)'),
     '#options' => $days,
-    '#default_value' => variable_get('happy_new_year_start', 1),
+    '#default_value' => variable_get('happy_new_year_start', '0'),
   ];
   $form['period']['period_dates']['happy_new_year_end'] = [
     '#type' => 'select',
     '#title' => t('End day (January)'),
     '#options' => $days,
-    '#default_value' => variable_get('happy_new_year_end', 10),
+    '#default_value' => variable_get('happy_new_year_end', '9'),
   ];
   $form['snow_and_garland'] = [
     '#type' => 'fieldset',
