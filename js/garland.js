@@ -46,7 +46,7 @@
             $('#garland').css('top', adminMenuHeight + 'px');
             $('#garland').css('zIndex', '998');
           }
-        }, 350);
+        }, 500);
       }
 
       // Custom margin.
