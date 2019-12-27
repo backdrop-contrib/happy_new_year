@@ -33,3 +33,12 @@ function happy_new_year_update_7100(&$sandbox) {
   variable_set('happy_new_year_start', '0');
   variable_set('happy_new_year_end', '9');
 }
+
+/**
+ * Reset some settings.
+ */
+function happy_new_year_update_7101(&$sandbox) {
+  variable_set('happy_new_year_garland', FALSE);
+  variable_set('happy_new_year_snow', FALSE);
+  return t('This update reset some settings. Please visit the happy_new_year settings page.');
+}
