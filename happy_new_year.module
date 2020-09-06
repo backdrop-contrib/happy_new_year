@@ -144,9 +144,16 @@ function happy_new_year_settings_form() {
   ];
   $form['happy_new_year_minified'] = [
     '#type' => 'checkbox',
-    '#title' => t('Use minified libraries if it possible'),
+    '#title' => t('Use minified libraries (recommended for production)'),
     '#default_value' => variable_get('happy_new_year_minified', TRUE),
   ];
+  $form['happy_new_year_cdn'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Load libraries from CDN (github)'),
+    '#description' => t('If you want to load libraries from local directory use /sites/all/libraries directory'),
+    '#default_value' => variable_get('happy_new_year_cdn', TRUE),
+  ];
+
   return system_settings_form($form);
 }
 
@@ -179,10 +186,22 @@ function happy_new_year_preprocess_html(&$variables) {
   $module_path = drupal_get_path('module', 'happy_new_year');
 
   if ((!path_is_admin(current_path()))) {
-    $snowLibrary = '/js/snowstorm.js';
-    $snowLibraryMin = '/js/snowstorm-min.js';
+    global $base_url;
+    $snowLibrary = $base_url . '/sites/all/libraries/snowstorm/snowstorm.js';
+    $snowLibraryMin = $base_url . '/sites/all/libraries/snowstorm/snowstorm-min.js';
+    $snowLibraryCdn = 'https://cdn.jsdelivr.net/gh/ivnish/Snowstorm/snowstorm.js';
+    $snowLibraryMinCdn = 'https://cdn.jsdelivr.net/gh/ivnish/Snowstorm/snowstorm-min.js';
+
+    if (variable_get('happy_new_year_cdn', TRUE)) {
+      $snowLibrary = $snowLibraryCdn;
+    }
+
     if (variable_get('happy_new_year_minified', TRUE)) {
       $snowLibrary = $snowLibraryMin;
+
+      if (variable_get('happy_new_year_cdn', TRUE)) {
+        $snowLibrary = $snowLibraryMinCdn;
+      }
     }
 
     if (variable_get('happy_new_year_garland')) {
@@ -209,7 +228,7 @@ function happy_new_year_preprocess_html(&$variables) {
     }
 
     if (variable_get('happy_new_year_snow')) {
-      drupal_add_js($module_path . $snowLibrary);
+      drupal_add_js($snowLibrary);
       drupal_add_js($module_path . '/js/snow.js');
       drupal_add_js([
         'happy_new_year' => [
