@@ -1,7 +1,6 @@
-# Happy New Year
+# Happy New Year and Merry Christmas!
 
-A module with garland, lights, and snow decoration that creates a long lasting atmosphere
-of Christmas and New Years for you and the users of your website.
+A module with garland and snow decoration that creates longlasting atmosphere of New Year and Merry Christmas for you and the users of your website.
 
 ## Installation
 
