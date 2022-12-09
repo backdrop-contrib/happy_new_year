@@ -18,7 +18,7 @@
 
       // Add new garland if garland doesn't exists.
       if ($('#garland').length === 0) {
-        $('body').prepend('<div id="garland"></div>');
+        $('body').prepend('<div id="garland-wrapper"><div id="garland"></div></div>');
       }
 
       // if core toolbar exists.
