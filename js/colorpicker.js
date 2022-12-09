@@ -2,7 +2,7 @@
 
   'use strict';
 
-  Drupal.behaviors.colorPicker = {
+  Backdrop.behaviors.colorPicker = {
     attach: function (context, settings) {
 
       $(document).ready(function () {

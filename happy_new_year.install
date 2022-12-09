@@ -6,39 +6,77 @@
  */
 
 /**
- * Implements hook_uninstall().
+ * Implements hook_uninstall().().
  */
 function happy_new_year_uninstall() {
-  variable_del('happy_new_year_garland');
-  variable_del('happy_new_year_snow');
-  variable_del('happy_new_year_snowcolor');
-  variable_del('happy_new_year_start');
-  variable_del('happy_new_year_end');
-  variable_del('happy_new_year_period');
-  variable_del('happy_new_year_minified');
-  variable_del('happy_new_year_garland_topfixed');
-  variable_del('happy_new_year_garland_coretoolbar');
-  variable_del('happy_new_year_garland_bootstrapfixed');
-  variable_del('happy_new_year_garland_adminmenu');
-  variable_del('happy_new_year_garland_custommargin');
-  variable_del('happy_new_year_garland_custommargintext');
+  config_clear('happy_new_year.settings', 'happy_new_year_garland');
+  config_clear('happy_new_year.settings', 'happy_new_year_snow');
+  config_clear('happy_new_year.settings', 'happy_new_year_snowcolor');
+  config_clear('happy_new_year.settings', 'happy_new_year_start');
+  config_clear('happy_new_year.settings', 'happy_new_year_end');
+  config_clear('happy_new_year.settings', 'happy_new_year_period');
+  config_clear('happy_new_year.settings', 'happy_new_year_minified');
+  config_clear('happy_new_year.settings', 'happy_new_year_garland_topfixed');
+  config_clear('happy_new_year.settings', 'happy_new_year_garland_coretoolbar');
+  config_clear('happy_new_year.settings', 'happy_new_year_garland_bootstrapfixed');
+  config_clear('happy_new_year.settings', 'happy_new_year_garland_adminmenu');
+  config_clear('happy_new_year.settings', 'happy_new_year_garland_custommargin');
+  config_clear('happy_new_year.settings', 'happy_new_year_garland_custommargintext');
+}
+
+// TODO The old hook_update_N functions cannot be applied to Backdrop.
+function happy_new_year_update_7100(&$sandbox) { }
+
+// TODO The old hook_update_N functions cannot be applied to Backdrop.
+function happy_new_year_update_7101(&$sandbox) { }
+
+/**
+ * Implements hook_update_last_removed().
+ */
+function happy_new_year_update_last_removed() {
+  return 7101;
 }
 
 /**
- * Fix variables.
+ * Migrate happy_new_year variables to config.
  */
-function happy_new_year_update_7100(&$sandbox) {
-  variable_del('happy_new_year_start');
-  variable_del('happy_new_year_end');
-  variable_set('happy_new_year_start', '0');
-  variable_set('happy_new_year_end', '9');
+function happy_new_year_update_1000() {
+  $config = config('happy_new_year.settings');
+  $config->set('happy_new_year_period', update_variable_get('happy_new_year_period', ''));
+  $config->set('happy_new_year_start', update_variable_get('happy_new_year_start', ''));
+  $config->set('happy_new_year_end', update_variable_get('happy_new_year_end', ''));
+  $config->set('happy_new_year_garland', update_variable_get('happy_new_year_garland', ''));
+  $config->set('happy_new_year_garland_topfixed', update_variable_get('happy_new_year_garland_topfixed', TRUE));
+  $config->set('happy_new_year_garland_coretoolbar', update_variable_get('happy_new_year_garland_coretoolbar', ''));
+  $config->set('happy_new_year_garland_bootstrapfixed', update_variable_get('happy_new_year_garland_bootstrapfixed', ''));
+  $config->set('happy_new_year_garland_adminmenu', update_variable_get('happy_new_year_garland_adminmenu', ''));
+  $config->set('happy_new_year_garland_custommargin', update_variable_get('happy_new_year_garland_custommargin', ''));
+  $config->set('happy_new_year_garland_custommargintext', update_variable_get('happy_new_year_garland_custommargintext', ''));
+  $config->set('happy_new_year_snow', update_variable_get('happy_new_year_snow', ''));
+  $config->set('happy_new_year_snowcolor', update_variable_get('happy_new_year_snowcolor', '#FFFFFF'));
+  $config->set('happy_new_year_minified', update_variable_get('happy_new_year_minified', TRUE));
+  $config->set('happy_new_year_cdn', update_variable_get('happy_new_year_cdn', TRUE));
+  $config->save();
+
+  update_variable_del('happy_new_year_period');
+  update_variable_del('happy_new_year_start');
+  update_variable_del('happy_new_year_end');
+  update_variable_del('happy_new_year_garland');
+  update_variable_del('happy_new_year_garland_topfixed');
+  update_variable_del('happy_new_year_garland_coretoolbar');
+  update_variable_del('happy_new_year_garland_bootstrapfixed');
+  update_variable_del('happy_new_year_garland_adminmenu');
+  update_variable_del('happy_new_year_garland_custommargin');
+  update_variable_del('happy_new_year_garland_custommargintext');
+  update_variable_del('happy_new_year_snow');
+  update_variable_del('happy_new_year_snowcolor');
+  update_variable_del('happy_new_year_minified');
+  update_variable_del('happy_new_year_cdn');
 }
 
 /**
- * Reset some settings.
+ * Implements hook_install().
  */
-function happy_new_year_update_7101(&$sandbox) {
-  variable_set('happy_new_year_garland', FALSE);
-  variable_set('happy_new_year_snow', FALSE);
-  return t('This update reset some settings. Please visit the happy_new_year settings page.');
+function happy_new_year_install() {
+  // Dynamically generated variable data was detected.
 }

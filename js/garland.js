@@ -2,7 +2,7 @@
 
   'use strict';
 
-  Drupal.behaviors.garland = {
+  Backdrop.behaviors.garland = {
     attach: function (context, settings) {
 
       var num = 0;
@@ -22,7 +22,7 @@
       }
 
       // if core toolbar exists.
-      if (Drupal.settings.happy_new_year.garlandCoreToolbar) {
+      if (Backdrop.settings.happy_new_year.garlandCoreToolbar) {
         if ($('#toolbar').length > 0) {
           var toolbarHeight = $('#toolbar').height();
           $('#garland').css('top', toolbarHeight + 'px');
@@ -30,7 +30,7 @@
       }
 
       // if bootstrap navbar fixed exists.
-      if (Drupal.settings.happy_new_year.garlandBootstrapFixed) {
+      if (Backdrop.settings.happy_new_year.garlandBootstrapFixed) {
         if ($('.navbar-fixed-top').length > 0) {
           var navbarHeight = $('.navbar-fixed-top').height();
           var navbarTop = $('.navbar-fixed-top').position().top;
@@ -39,10 +39,10 @@
       }
 
       // if admin_menu exists.
-      if (Drupal.settings.happy_new_year.garlandAdminMenu) {
+      if (Backdrop.settings.happy_new_year.garlandAdminMenu) {
         setTimeout(function () {
-          if ($('#admin-menu').length > 0) {
-            var adminMenuHeight = $('#admin-menu').height();
+          if ($('#admin-bar').length > 0) {
+            var adminMenuHeight = $('#admin-bar').height();
             $('#garland').css('top', adminMenuHeight + 'px');
             $('#garland').css('zIndex', '998');
           }
@@ -50,8 +50,8 @@
       }
 
       // Custom margin.
-      if (Drupal.settings.happy_new_year.garlandCustomMargin) {
-        var top = Drupal.settings.happy_new_year.garlandCustomMarginText;
+      if (Backdrop.settings.happy_new_year.garlandCustomMargin) {
+        var top = Backdrop.settings.happy_new_year.garlandCustomMarginText;
         if (top > 0) {
           $('#garland').css('top', top + 'px');
         }

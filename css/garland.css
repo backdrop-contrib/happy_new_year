@@ -7,3 +7,7 @@
   overflow: hidden;
   z-index: 1031;
 }
+
+body.logged-in #christmas-lights {
+  top: 33px;
+}

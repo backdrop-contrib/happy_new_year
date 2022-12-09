@@ -2,10 +2,10 @@
 
   'use strict';
 
-  Drupal.behaviors.snow = {
+  Backdrop.behaviors.snow = {
     attach: function (context, settings) {
 
-      snowStorm.snowColor = Drupal.settings.happy_new_year.snowColor;
+      snowStorm.snowColor = Backdrop.settings.happy_new_year.snowColor;
 
     }
   };

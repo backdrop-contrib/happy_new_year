@@ -1,0 +1,17 @@
+{
+    "_config_name": "happy_new_year.settings",
+    "happy_new_year_period": "",
+    "happy_new_year_start": "",
+    "happy_new_year_end": "",
+    "happy_new_year_garland": "",
+    "happy_new_year_garland_topfixed": true,
+    "happy_new_year_garland_coretoolbar": "",
+    "happy_new_year_garland_bootstrapfixed": "",
+    "happy_new_year_garland_adminmenu": "",
+    "happy_new_year_garland_custommargin": "",
+    "happy_new_year_garland_custommargintext": "",
+    "happy_new_year_snow": "",
+    "happy_new_year_snowcolor": "#FFFFFF",
+    "happy_new_year_minified": true,
+    "happy_new_year_cdn": true
+}

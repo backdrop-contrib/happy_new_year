@@ -1,4 +1,5 @@
 name = Happy New Year
 description = A module with garland and snow decoration that creates longlasting atmosphere of New Year for you and the users of your website.
-core = 7.x
+backdrop = 1.x
+type = module
 configure = admin/config/media/happy_new_year
